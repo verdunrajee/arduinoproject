@@ -34,3 +34,11 @@
     if (VIDPIDIndex < 0) {
       return;
     }
+   //fill that in 
+  private int findVIDPIDIndex(PreferencesMap preferences, String vid, String pid) {
+    Optional<Integer> vidPid = preferences.subTree("vid").entrySet().stream()
+      .filter(keyValue -> !keyValue.getKey().contains("."))
+      .filter(keyValue -> vid.equals(keyValue.getValue().toUpperCase()) && pid.equals(preferences.get("pid." + keyValue.getKey()).toUpperCase()))
+      .map(Map.Entry::getKey)
+      .map(Integer::valueOf)
+      .findFirst();
